@@ -87,10 +87,14 @@ const getElements = (path) => {
 };
 
 const getFrames = (path) => {
-  return fs
-  .readdirSync(path)
-  .filter((item) => !/(^|\/)\.[^\/\.]/g.test(item))
-  .map((name) => `${path}${name}`);
+  const framePaths = fs
+    .readdirSync(path)
+    .filter((item) => !/(^|\/)\.[^\/\.]/g.test(item))
+    .map((name) => `${path}${name}`);
+
+  console.log('getFrames', path, framePaths);
+
+  return framePaths;
 }
 
 const layersSetup = (layersOrder) => {
