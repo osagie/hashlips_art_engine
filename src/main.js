@@ -297,9 +297,13 @@ const isDnaUnique = (_DnaList = new Set(), _dna = "") => {
 
 const createDna = (_layers) => {
   let randNum = [];
-  const frame = Math.floor(Math.random() * layer.elements.length);
+  let frame = 0;
 
   _layers.forEach((layer) => {
+    if (layer.hasFrames && !frame) {
+      frame = Math.floor(Math.random() * layer.elements.length);
+    }
+    
     const elements = layer.hasFrames ? layer.elements[frame] : layer.elements;
     
     const totalWeight = elements.reduce((weight, element) => {
