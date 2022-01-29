@@ -232,6 +232,7 @@ const drawElement = (_renderObject, _index, _layersLen) => {
 const constructLayerToDna = (_dna = "", _layers = []) => {
   let mappedDnaToLayers = _layers.map((layer, index) => {
     const dna = _dna.split(DNA_DELIMITER)[index];
+    console.log('constructLayerToDna dna', dna);
     const hasFrame = dna.startsWith('FRaMe');
     const frame = hasFrame ? parseInt(dna.split('_')[1], 10) : 0;
     const elements = hasFrame ? layer.elements[frame] : layer.elements;
@@ -316,13 +317,11 @@ const createDna = (_layers) => {
       // subtract the current weight from the random weight until we reach a sub zero value.
       random -= elements[i].weight;
       if (random < 0) {
-        let dna = '';
+        let dna = `${elements[i].id}:${elements[i].filename}`;
 
         if (layer.hasFrames) {
-          dna += `FRaMe_${frame}_`
+          dna = `FRaMe_${frame}_${dna}`;
         }
-
-        dna += `${elements[i].id}:${elements[i].filename}`
 
         if (layer.bypassDNA) {
           dna += '?bypassDNA=true';
@@ -392,6 +391,7 @@ const startCreating = async () => {
       editionCount <= layerConfigurations[layerConfigIndex].growEditionSizeTo
     ) {
       let newDna = createDna(layers);
+      console.log('newDna', newDna);
       if (isDnaUnique(dnaList, newDna)) {
         let results = constructLayerToDna(newDna, layers);
         let loadedElements = [];
