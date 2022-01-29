@@ -86,10 +86,20 @@ const getElements = (path) => {
     });
 };
 
+const getFrames = (path) => {
+  return fs
+  .readdirSync(path)
+  .filter((item) => !/(^|\/)\.[^\/\.]/g.test(item))
+  .map((name) => `${path}${name}`);
+}
+
 const layersSetup = (layersOrder) => {
   const layers = layersOrder.map((layerObj, index) => ({
     id: index,
-    elements: getElements(`${layersDir}/${layerObj.name}/`),
+    hasFrames: Boolean(layerObj.options?.["hasFrames"]),
+    elements: Boolean(layerObj.options?.["hasFrames"]) ?
+      getFrames(`${layersDir}/${layerObj.name}/`).map(getElements) :
+      getElements(`${layersDir}/${layerObj.name}/`),
     name:
       layerObj.options?.["displayName"] != undefined
         ? layerObj.options?.["displayName"]
@@ -221,8 +231,14 @@ const drawElement = (_renderObject, _index, _layersLen) => {
 
 const constructLayerToDna = (_dna = "", _layers = []) => {
   let mappedDnaToLayers = _layers.map((layer, index) => {
-    let selectedElement = layer.elements.find(
-      (e) => e.id == cleanDna(_dna.split(DNA_DELIMITER)[index])
+    const dna = _dna.split(DNA_DELIMITER)[index];
+    const hasFrame = dna.startsWith('FRaMe');
+    const frame = hasFrame ? parseInt(dna.split('_')[1], 10) : 0;
+    const elements = hasFrame ? layer.elements[frame] : layer.elements;
+    const framelessDNA = hasFrame ? dna.split(`FRaMe_${frame}`).pop() : dna;
+
+    let selectedElement = elements.find(
+      (e) => e.id == cleanDna(framelessDNA)
     );
     return {
       name: layer.name,
@@ -281,22 +297,34 @@ const isDnaUnique = (_DnaList = new Set(), _dna = "") => {
 
 const createDna = (_layers) => {
   let randNum = [];
+  const frame = Math.floor(Math.random() * layer.elements.length);
+
   _layers.forEach((layer) => {
-    var totalWeight = 0;
-    layer.elements.forEach((element) => {
-      totalWeight += element.weight;
-    });
+    const elements = layer.hasFrames ? layer.elements[frame] : layer.elements;
+    
+    const totalWeight = elements.reduce((weight, element) => {
+      weight += element.weight;
+    }, 0);
+
     // number between 0 - totalWeight
     let random = Math.floor(Math.random() * totalWeight);
-    for (var i = 0; i < layer.elements.length; i++) {
+    for (var i = 0; i < elements.length; i++) {
       // subtract the current weight from the random weight until we reach a sub zero value.
-      random -= layer.elements[i].weight;
+      random -= elements[i].weight;
       if (random < 0) {
-        return randNum.push(
-          `${layer.elements[i].id}:${layer.elements[i].filename}${
-            layer.bypassDNA ? "?bypassDNA=true" : ""
-          }`
-        );
+        let dna = '';
+
+        if (layer.hasFrames) {
+          dna += `FRaMe_${frame}_`
+        }
+
+        dna += `${elements[i].id}:${elements[i].filename}`
+
+        if (layer.bypassDNA) {
+          dna += '?bypassDNA=true';
+        }
+
+        return dna;
       }
     }
   });
