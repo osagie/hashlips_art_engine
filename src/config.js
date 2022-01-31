@@ -65,10 +65,96 @@ const layerConfigurations = [
         }
       },
     ],
+  },
+  {
+    growEditionSizeTo: 10,
+    layersOrder: [
+      { name: "01_BACKGROUND" },
+      { name: "02_TYPE_HUMAN",  
+        options: {
+          hasFrames: false,
+          blend: MODE.hardLight,
+          displayName: "Character Type", 
+        },  
+      },
+      { name: "03_CHARACTER_HUMAN",
+        options: {
+          hasFrames: true,
+          displayName: "Character Skin", 
+        },
+      },
+      { name: "04_MOUTH_HUMAN", 
+        options: {
+          hasFrames: true,
+          displayName: "Mouth", 
+        },  
+      },
+      { name: "05_MARKINGS" },
+      { name: "06_EYES" },
+      { name: "07_All_Ears_Nose" },
+      { name: "08_ACCESSORIES" },
+      { name: "09_HAIR"},
+      { name: "10_CLOTHING"},
+      { name: "11_All_Grain",
+        options: {
+          blend: MODE.softlight,
+          opacity: 0.35,
+        } 
+      },
+      { name: "12_All_HardContrast",
+        options: {
+          blend: MODE.overlay,
+          opacity: 0.2,
+        }
+      },
+    ],
+  },
+  {
+    growEditionSizeTo: 15,
+    layersOrder: [
+      { name: "01_BACKGROUND" },
+      { name: "02_TYPE_SOLKIN",  
+        options: {
+          hasFrames: false,
+          blend: MODE.hardLight,
+          displayName: "Character Type", 
+        },  
+      },
+      { name: "03_CHARACTER_SOLKIN",
+        options: {
+          hasFrames: true,
+          displayName: "Character Skin", 
+        },
+      },
+      { name: "04_MOUTH_SOLKIN", 
+        options: {
+          hasFrames: true,
+          displayName: "Mouth", 
+        },  
+      },
+      { name: "05_MARKINGS" },
+      { name: "06_EYES" },
+      { name: "07_All_Ears_Nose" },
+      { name: "08_ACCESSORIES" },
+      { name: "09_HAIR"},
+      { name: "10_CLOTHING"},
+      { name: "11_All_Grain",
+        options: {
+          blend: MODE.softlight,
+          opacity: 0.35,
+        } 
+      },
+      { name: "12_All_HardContrast",
+        options: {
+          blend: MODE.overlay,
+          opacity: 0.2,
+        }
+      },
+    ],
   }
 ];
 
-const shuffleLayerConfigurations = false;
+const shuffleLayerConfigurations = true;
 
 const debugLogs = false;
 
