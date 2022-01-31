@@ -152,7 +152,7 @@ const addMetadata = (_dna, _edition) => {
     date: dateTime,
     ...extraMetadata,
     attributes: attributesList,
-    compiler: "HashLips Art Engine",
+    compiler: "Thea v2.0.3a + Stochastic Input via Legasus",
   };
   if (network == NETWORK.sol) {
     tempMetadata = {
