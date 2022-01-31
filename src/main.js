@@ -90,9 +90,7 @@ const getFrames = (path) => {
   const framePaths = fs
     .readdirSync(path)
     .filter((item) => !/(^|\/)\.[^\/\.]/g.test(item))
-    .map((name) => `${path}${name}`);
-
-  console.log('getFrames', path, framePaths);
+    .map((name) => `${path}${name}/`);
 
   return framePaths;
 }
@@ -121,6 +119,7 @@ const layersSetup = (layersOrder) => {
         ? layerObj.options?.["bypassDNA"]
         : false,
   }));
+
   return layers;
 };
 
@@ -236,20 +235,20 @@ const drawElement = (_renderObject, _index, _layersLen) => {
 const constructLayerToDna = (_dna = "", _layers = []) => {
   let mappedDnaToLayers = _layers.map((layer, index) => {
     const dna = _dna.split(DNA_DELIMITER)[index];
-    console.log('constructLayerToDna dna', dna);
     const hasFrame = dna.startsWith('FRaMe');
     const frame = hasFrame ? parseInt(dna.split('_')[1], 10) : 0;
     const elements = hasFrame ? layer.elements[frame] : layer.elements;
-    const framelessDNA = hasFrame ? dna.split(`FRaMe_${frame}`).pop() : dna;
+    const framelessDNA = hasFrame ? dna.split(`FRaMe_${frame}_`).pop() : dna;
 
-    let selectedElement = elements.find(
+    const selectedElement = elements.find(
       (e) => e.id == cleanDna(framelessDNA)
     );
+
     return {
       name: layer.name,
       blend: layer.blend,
       opacity: layer.opacity,
-      selectedElement: selectedElement,
+      selectedElement,
     };
   });
   return mappedDnaToLayers;
@@ -312,7 +311,7 @@ const createDna = (_layers) => {
     const elements = layer.hasFrames ? layer.elements[frame] : layer.elements;
     
     const totalWeight = elements.reduce((weight, element) => {
-      weight += element.weight;
+      return weight + element.weight; // TODO issue with weights being 0;
     }, 0);
 
     // number between 0 - totalWeight
@@ -322,7 +321,6 @@ const createDna = (_layers) => {
       random -= elements[i].weight;
       if (random < 0) {
         let dna = `${elements[i].id}:${elements[i].filename}`;
-
         if (layer.hasFrames) {
           dna = `FRaMe_${frame}_${dna}`;
         }
@@ -331,10 +329,11 @@ const createDna = (_layers) => {
           dna += '?bypassDNA=true';
         }
 
-        return dna;
+        return randNum.push(dna);
       }
     }
   });
+
   return randNum.join(DNA_DELIMITER);
 };
 

@@ -5,17 +5,17 @@ const { NETWORK } = require(`${basePath}/constants/network.js`);
 const network = NETWORK.eth;
 
 // General metadata for Ethereum
-const namePrefix = "Your Collection";
-const description = "Remember to replace this description";
+const namePrefix = "Midnight City Season 01";
+const description = "Season 01 of Midnight City NFT Badges";
 const baseUri = "ipfs://NewUriToReplace";
 
 const solanaMetadata = {
   symbol: "YC",
-  seller_fee_basis_points: 1000, // Define how much % you want from secondary market sales 1000 = 10%
-  external_url: "https://www.youtube.com/c/hashlipsnft",
+  seller_fee_basis_points: 2000, // Define how much % you want from secondary market sales 1000 = 10%
+  external_url: "https://www.midnightcitynft.com",
   creators: [
     {
-      address: "7fXNuer5sbZtaTEPhtJ5g5gNtuyRoKkvxdjEjEnPN4mC",
+      address: "0x03dBDA14Ad96554B2da6A906702C2dEf34034971",
       share: 100,
     },
   ],
@@ -26,15 +26,46 @@ const layerConfigurations = [
   {
     growEditionSizeTo: 5,
     layersOrder: [
-      { name: "Background" },
-      { name: "Eyeball" },
-      { name: "Eye color" },
-      { name: "Iris" },
-      { name: "Shine" },
-      { name: "Bottom lid" },
-      { name: "Top lid" },
+      { name: "01_BACKGROUND" },
+      { name: "02_TYPE_BLUDGARD",  
+        options: {
+          hasFrames: false,
+          blend: MODE.hardLight,
+          displayName: "Character Type", 
+        },  
+      },
+      { name: "03_CHARACTER_BLUDGARD",
+        options: {
+          hasFrames: true,
+          displayName: "Character Skin", 
+        },
+      },
+      { name: "04_MOUTH_BLUDGARD", 
+        options: {
+          hasFrames: true,
+          displayName: "Mouth", 
+        },  
+      },
+      { name: "05_MARKINGS" },
+      { name: "06_EYES" },
+      { name: "07_All_Ears_Nose" },
+      { name: "08_ACCESSORIES" },
+      { name: "09_HAIR"},
+      { name: "10_CLOTHING"},
+      { name: "11_All_Grain",
+        options: {
+          blend: MODE.softlight,
+          opacity: 0.35,
+        } 
+      },
+      { name: "12_All_HardContrast",
+        options: {
+          blend: MODE.overlay,
+          opacity: 0.2,
+        }
+      },
     ],
-  },
+  }
 ];
 
 const shuffleLayerConfigurations = false;
@@ -42,8 +73,8 @@ const shuffleLayerConfigurations = false;
 const debugLogs = false;
 
 const format = {
-  width: 512,
-  height: 512,
+  width: 1500,
+  height: 1500,
   smoothing: false,
 };
 
@@ -73,12 +104,13 @@ const pixelFormat = {
 
 const background = {
   generate: true,
-  brightness: "80%",
+  brightness: "100%",
   static: false,
-  default: "#000000",
+  default: "#ffffff",
 };
 
 const extraMetadata = {};
+{}
 
 const rarityDelimiter = "#";
 
