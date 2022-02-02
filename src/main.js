@@ -305,7 +305,7 @@ const createDna = (_layers) => {
   let prettymouth = false;
   let prettyhair = false;
 
-  _layers.forEach((layer) => {
+  _layers.forEach((layer, index) => {
     if (layer.hasFrames && frame < 0) {
       frame = Math.floor(Math.random() * layer.elements.length);
     }
@@ -319,26 +319,35 @@ const createDna = (_layers) => {
     // number between 0 - totalWeight
     let random = Math.floor(Math.random() * totalWeight);
     for (var i = 0; i < elements.length; i++) {
+      const element = elements[i];
       // subtract the current weight from the random weight until we reach a sub zero value.
-      random -= elements[i].weight;
+      random -= element.weight;
+
+      const filename = element.filename;
+
       if (random < 0) {
-        const filename = elements[i].filename;
-        let dna = `${elements[i].id}:${filename}`;
-        
         if (filename.indexOf('2B ') > -1) {
           switch (layer.name) {
             case 'Mouth':
               prettymouth = true;
+              break;
             case 'Hair':
               prettyhair = true;
+              break;
             case 'Accessories':
-              if (prettymouth)
+              if (prettymouth) {
                 continue;
+              }
+              break;
             case 'Clothing':
-              if (prettyhair)
+              if (prettyhair) {
                 continue;
+              }
+              break;
           }
         }
+
+        let dna = `${element.id}:${filename}`;
 
         if (layer.hasFrames) {
           dna = `FRaMe_${frame}_${dna}`;
