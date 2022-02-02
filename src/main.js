@@ -419,7 +419,11 @@ const startCreating = async () => {
       let newDna;
 
       do {
-        newDna = createDna(layers);
+        try {
+          newDna = createDna(layers);
+        } catch(e) {
+          console.warn('[warning] createDna fail', e);
+        }
       } while (!newDna);
 
       if (isDnaUnique(dnaList, newDna)) {
