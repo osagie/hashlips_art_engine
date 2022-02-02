@@ -302,6 +302,8 @@ const isDnaUnique = (_DnaList = new Set(), _dna = "") => {
 const createDna = (_layers) => {
   let randNum = [];
   let frame = 0;
+  let prettymouth = false;
+  let prettyhair = false;
 
   _layers.forEach((layer) => {
     if (layer.hasFrames && !frame) {
@@ -320,7 +322,24 @@ const createDna = (_layers) => {
       // subtract the current weight from the random weight until we reach a sub zero value.
       random -= elements[i].weight;
       if (random < 0) {
-        let dna = `${elements[i].id}:${elements[i].filename}`;
+        const filename = elements[i].filename;
+        let dna = `${elements[i].id}:${filename}`;
+        
+        if (filename.indexOf('2B ') > -1) {
+          switch (layer.name) {
+            case 'Mouth':
+              prettymouth = true;
+            case 'Hair':
+              prettyhair = true;
+            case 'Accessories':
+              if (prettymouth)
+                return;
+            case 'Clothing':
+              if (prettyhair)
+                return;
+          }
+        }
+
         if (layer.hasFrames) {
           dna = `FRaMe_${frame}_${dna}`;
         }
@@ -333,6 +352,10 @@ const createDna = (_layers) => {
       }
     }
   });
+
+  if (randNum.length !== _layers.length) {
+    return;
+  }
 
   return randNum.join(DNA_DELIMITER);
 };
@@ -393,8 +416,12 @@ const startCreating = async () => {
     while (
       editionCount <= layerConfigurations[layerConfigIndex].growEditionSizeTo
     ) {
-      let newDna = createDna(layers);
-      console.log('newDna', newDna);
+      let newDna;
+
+      do {
+        newDna = createDna(layers);
+      } while (!newDna);
+
       if (isDnaUnique(dnaList, newDna)) {
         let results = constructLayerToDna(newDna, layers);
         let loadedElements = [];

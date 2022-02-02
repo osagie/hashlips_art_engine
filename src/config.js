@@ -24,9 +24,13 @@ const solanaMetadata = {
 // If you have selected Solana then the collection starts from 0 automatically
 const layerConfigurations = [
   {
-    growEditionSizeTo: 5,
+    growEditionSizeTo: 10,
     layersOrder: [
-      { name: "01_BACKGROUND" },
+      { name: "01_BACKGROUND",
+        options: {
+          displayName: "Background",
+        }
+      },
       { name: "02_TYPE_BLUDGARD",  
         options: {
           hasFrames: false,
@@ -46,30 +50,60 @@ const layerConfigurations = [
           displayName: "Mouth", 
         },  
       },
-      { name: "05_MARKINGS" },
-      { name: "06_EYES" },
-      { name: "07_All_Ears_Nose" },
-      { name: "08_ACCESSORIES" },
-      { name: "09_HAIR"},
-      { name: "10_CLOTHING"},
+      { name: "05_MARKINGS", 
+        options: {
+          displayName: "Marking",
+        },
+      },
+      { name: "06_EYES", 
+        options: {
+          displayName: "Eyes"
+        }
+      },
+      { name: "07_All_Ears_Nose",
+        options: {
+        displayName: "Feature Set" 
+        }
+      },
+      { name: "08_ACCESSORIES",
+        options: {
+          displayName: "Accessories",
+        } 
+      },
+      { name: "09_HAIR",
+        options: {
+          displayName: "Hair"
+        }
+      },
+      { name: "10_CLOTHING",
+        options: {
+          displayName: "Clothing",
+        }
+      },
       { name: "11_All_Grain",
         options: {
           blend: MODE.softlight,
           opacity: 0.35,
+          displayName: "Add Grain",
         } 
       },
       { name: "12_All_HardContrast",
         options: {
           blend: MODE.overlay,
           opacity: 0.2,
+          displayName: "Add Hard-Light",
         }
       },
     ],
   },
   {
-    growEditionSizeTo: 10,
+    growEditionSizeTo: 20,
     layersOrder: [
-      { name: "01_BACKGROUND" },
+      { name: "01_BACKGROUND",
+        options: {
+          displayName: "Background",
+        }
+      },
       { name: "02_TYPE_HUMAN",  
         options: {
           hasFrames: false,
@@ -89,30 +123,60 @@ const layerConfigurations = [
           displayName: "Mouth", 
         },  
       },
-      { name: "05_MARKINGS" },
-      { name: "06_EYES" },
-      { name: "07_All_Ears_Nose" },
-      { name: "08_ACCESSORIES" },
-      { name: "09_HAIR"},
-      { name: "10_CLOTHING"},
+      { name: "05_MARKINGS", 
+        options: {
+          displayName: "Marking",
+        },
+      },
+      { name: "06_EYES", 
+        options: {
+          displayName: "Eyes"
+        }
+      },
+      { name: "07_All_Ears_Nose",
+        options: {
+        displayName: "Feature Set" 
+        }
+      },
+      { name: "08_ACCESSORIES",
+        options: {
+          displayName: "Accessories",
+        } 
+      },
+      { name: "09_HAIR",
+        options: {
+          displayName: "Hair"
+        }
+      },
+      { name: "10_CLOTHING",
+        options: {
+          displayName: "Clothing",
+        }
+      },
       { name: "11_All_Grain",
         options: {
           blend: MODE.softlight,
           opacity: 0.35,
+          displayName: "Add Grain",
         } 
       },
       { name: "12_All_HardContrast",
         options: {
           blend: MODE.overlay,
           opacity: 0.2,
+          displayName: "Add Hard-Light",
         }
       },
     ],
   },
   {
-    growEditionSizeTo: 15,
+    growEditionSizeTo: 30,
     layersOrder: [
-      { name: "01_BACKGROUND" },
+      { name: "01_BACKGROUND",
+        options: {
+          displayName: "Background",
+        }
+      },
       { name: "02_TYPE_SOLKIN",  
         options: {
           hasFrames: false,
@@ -132,26 +196,52 @@ const layerConfigurations = [
           displayName: "Mouth", 
         },  
       },
-      { name: "05_MARKINGS" },
-      { name: "06_EYES" },
-      { name: "07_All_Ears_Nose" },
-      { name: "08_ACCESSORIES" },
-      { name: "09_HAIR"},
-      { name: "10_CLOTHING"},
+      { name: "05_MARKINGS", 
+        options: {
+          displayName: "Marking",
+        },
+      },
+      { name: "06_EYES", 
+        options: {
+          displayName: "Eyes"
+        }
+      },
+      { name: "07_All_Ears_Nose",
+        options: {
+        displayName: "Feature Set" 
+        }
+      },
+      { name: "08_ACCESSORIES",
+        options: {
+          displayName: "Accessories",
+        } 
+      },
+      { name: "09_HAIR",
+        options: {
+          displayName: "Hair"
+        }
+      },
+      { name: "10_CLOTHING",
+        options: {
+          displayName: "Clothing",
+        }
+      },
       { name: "11_All_Grain",
         options: {
           blend: MODE.softlight,
           opacity: 0.35,
+          displayName: "Add Grain",
         } 
       },
       { name: "12_All_HardContrast",
         options: {
           blend: MODE.overlay,
           opacity: 0.2,
+          displayName: "Add Hard-Light",
         }
       },
     ],
-  }
+  },
 ];
 
 const shuffleLayerConfigurations = true;
