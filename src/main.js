@@ -333,10 +333,10 @@ const createDna = (_layers) => {
               prettyhair = true;
             case 'Accessories':
               if (prettymouth)
-                return;
+                continue;
             case 'Clothing':
               if (prettyhair)
-                return;
+                continue;
           }
         }
 
