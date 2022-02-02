@@ -301,13 +301,13 @@ const isDnaUnique = (_DnaList = new Set(), _dna = "") => {
 
 const createDna = (_layers) => {
   let randNum = [];
-  let frame = 0;
+  let frame = -1;
   let prettymouth = false;
   let prettyhair = false;
 
   _layers.forEach((layer) => {
-    if (layer.hasFrames && !frame) {
-      frame = Math.floor(Math.random() * layer.elements.length) + 1;
+    if (layer.hasFrames && frame < 0) {
+      frame = Math.floor(Math.random() * layer.elements.length);
     }
     
     const elements = layer.hasFrames ? layer.elements[frame] : layer.elements;
