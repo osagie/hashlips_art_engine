@@ -21,10 +21,13 @@ const solanaMetadata = {
   ],
 };
 
+// The total number of images to output assuming 3 configs. // TODO: maybe adjust configs at runtime
+const totalEditionSize = 100;
+
 // If you have selected Solana then the collection starts from 0 automatically
 const layerConfigurations = [
   {
-    growEditionSizeTo: 10,
+    growEditionSizeTo: Math.floor(totalEditionSize / 3.0),
     layersOrder: [
       { name: "01_BACKGROUND",
         options: {
@@ -97,7 +100,7 @@ const layerConfigurations = [
     ],
   },
   {
-    growEditionSizeTo: 20,
+    growEditionSizeTo: Math.floor(totalEditionSize / 3.0) * 2,
     layersOrder: [
       { name: "01_BACKGROUND",
         options: {
@@ -170,7 +173,7 @@ const layerConfigurations = [
     ],
   },
   {
-    growEditionSizeTo: 30,
+    growEditionSizeTo: totalEditionSize,
     layersOrder: [
       { name: "01_BACKGROUND",
         options: {
