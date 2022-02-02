@@ -307,7 +307,7 @@ const createDna = (_layers) => {
 
   _layers.forEach((layer) => {
     if (layer.hasFrames && !frame) {
-      frame = Math.floor(Math.random() * layer.elements.length);
+      frame = Math.floor(Math.random() * layer.elements.length) + 1;
     }
     
     const elements = layer.hasFrames ? layer.elements[frame] : layer.elements;
